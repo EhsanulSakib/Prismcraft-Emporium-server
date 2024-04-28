@@ -48,6 +48,23 @@ async function run() {
       const result = await coffeeCollection.insertOne(newCoffee);
       res.send(result)
   })
+
+  app.put('/crafts/:id', async(req,res) =>{
+    const id = req.params.id;
+    const filter = {_id: new ObjectId(id)}
+    const options = {upsert: true}
+    const updatedCoffee = req.body
+    const coffee={
+      $set:{
+        name:updatedCoffee.name,
+        chef:updatedCoffee.chef,
+        supplier:updatedCoffee.supplier, 
+        taste:updatedCoffee.taste,
+        price:updatedCoffee.price,
+        details:updatedCoffee.details,
+        photo:updatedCoffee.photo 
+      }
+    }
     
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
