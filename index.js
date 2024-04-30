@@ -42,6 +42,16 @@ async function run() {
       res.send(result)
     })
 
+    app.get('/crafts/:userName', async(req,res)=>{
+      const user = req.params.userName;
+      console.log(userName)
+      const query = { userName: { $lt: user } };
+      console.log(query)
+      const result = await craftsCollection.find(query)
+      res.send(result)
+    })
+
+
     app.post('/crafts', async(req,res) =>{
       const newCraft = req.body;
       console.log(newCraft)
@@ -56,13 +66,15 @@ async function run() {
     const updatedCoffee = req.body
     const coffee={
       $set:{
-        name:updatedCoffee.name,
-        chef:updatedCoffee.chef,
-        supplier:updatedCoffee.supplier, 
-        taste:updatedCoffee.taste,
-        price:updatedCoffee.price,
-        details:updatedCoffee.details,
-        photo:updatedCoffee.photo 
+        itemName: updatedCoffee.itemName,
+        subCategory: updatedCoffee.subCategory,
+        price: updatedCoffee.price,
+        rating: updatedCoffee.rating,
+        customization: updatedCoffee.customization,
+        stockStatus: updatedCoffee.stockStatus,
+        processingTime: updatedCoffee.processingTime,
+        photo: updatedCoffee.photo,
+        description: updatedCoffee.description
       }
     }
 
