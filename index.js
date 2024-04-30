@@ -27,13 +27,21 @@ async function run() {
 
     // crafts database
     const craftsCollection = client.db("craftsDB").collection('crafts');
+    const subCategoryCollection = client.db("craftsDB").collection('SubCategory');
     
-    app.get('/crafts', async(req,res) =>{
-        const cursor = craftsCollection.find();
+    app.get('/subCategory', async(req,res) =>{
+        const cursor = subCategoryCollection.find();
         const result = await cursor.toArray();
   
         res.send(result)
     })
+
+    app.get('/crafts', async(req,res) =>{
+      const cursor = craftsCollection.find();
+      const result = await cursor.toArray();
+
+      res.send(result)
+  })
     
     app.get('/crafts/:id', async(req,res)=>{
       const id = req.params.id;
